@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 
-@FeignClient(value="operationsClient", url = "localhost:8082/api/operations",  configuration = FeignConfig.class)
+@FeignClient(value="operationsClient", url = "https://api-operations-0934b01de2bd.herokuapp.com/api/operations",  configuration = FeignConfig.class)
 public interface OperationClient {
 
     @PostMapping("/random-string")
