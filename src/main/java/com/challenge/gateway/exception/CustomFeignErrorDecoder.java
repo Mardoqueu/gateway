@@ -11,10 +11,22 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * CustomFeignErrorDecoder is an implementation of the ErrorDecoder interface used to decode HTTP error responses
+ * received from Feign client interactions and map them to appropriate exceptions based on the HTTP status codes.
+ */
 public class CustomFeignErrorDecoder implements ErrorDecoder {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * Decodes a Response from the server into a corresponding Exception,
+     * based on HTTP status codes.
+     *
+     * @param methodKey the key of the method that triggered the request.
+     * @param response the HTTP response received from the server.
+     * @return an Exception corresponding to the HTTP status code of the response.
+     */
     @Override
     public Exception decode(String methodKey, Response response) {
         String message = extractMessageFromBody(response);
@@ -37,6 +49,12 @@ public class CustomFeignErrorDecoder implements ErrorDecoder {
         }
     }
 
+    /**
+     * Extracts the message from the response body if available, otherwise returns a default message based on the response status.
+     *
+     * @param response the response from which to extract the message
+     * @return the extracted message if present, otherwise a default message
+     */
     private String extractMessageFromBody(Response response) {
         String defaultMessage = getDefaultMessageForStatus(response.status());
         if (response.body() != null) {
@@ -58,6 +76,12 @@ public class CustomFeignErrorDecoder implements ErrorDecoder {
         return defaultMessage;
     }
 
+    /**
+     * Returns a default message based on the provided HTTP status code.
+     *
+     * @param status the HTTP status code for which to get the default message
+     * @return the default message corresponding to the HTTP status code
+     */
     private String getDefaultMessageForStatus(int status) {
         switch (status) {
             case 400: return "Invalid request data.";

@@ -2,6 +2,11 @@ package com.challenge.gateway.dto;
 
 import java.math.BigDecimal;
 
+/**
+ * A Data Transfer Object (DTO) representing the response of an operation.
+ *
+ * This class encapsulates the result and any error message related to the operation.
+ */
 public class OperationResponseDTO {
 
     private BigDecimal result;

@@ -1,5 +1,10 @@
 package com.challenge.gateway.dto;
 
+/**
+ * The UserDTO class is a Data Transfer Object used for encapsulating user data
+ * such as the username and password. This class is primarily used to transfer
+ * user-related data between processes.
+ */
 public class UserDTO {
 
     private String userName;

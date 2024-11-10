@@ -9,9 +9,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * Configuration class for setting up Feign clients.
+ */
 @Configuration
 public class FeignConfig {
 
+    /**
+     * Creates a RequestInterceptor that intercepts outgoing Feign client requests and applies the
+     * Authorization header from the incoming HTTP request, if present.
+     *
+     * @return a RequestInterceptor that adds the Authorization header to outgoing Feign requests.
+     */
     @Bean
     public RequestInterceptor requestInterceptor() {
         return new RequestInterceptor() {
@@ -28,6 +37,12 @@ public class FeignConfig {
         };
     }
 
+    /**
+     * Configures the custom error decoder to handle HTTP error responses from Feign clients.
+     *
+     * @return An instance of {@link CustomFeignErrorDecoder}, which processes HTTP responses and extracts
+     *         error messages to throw appropriate exceptions based on the status code.
+     */
     @Bean
     public ErrorDecoder errorDecoder() {
         return new CustomFeignErrorDecoder();
