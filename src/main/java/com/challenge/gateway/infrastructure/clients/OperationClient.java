@@ -7,6 +7,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.challenge.gateway.dto.Operation;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import java.math.BigDecimal;
 
@@ -33,4 +36,9 @@ public interface OperationClient {
      */
     @PostMapping("/execute")
     BigDecimal executeOperation(@RequestBody OperationDTO operationDTO);
+
+    @GetMapping
+    public List<Operation> getAllOperations();
+    @DeleteMapping("/{id}")
+    public String deleteOperation(@PathVariable Long id);
 }
